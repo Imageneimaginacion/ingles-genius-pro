@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Autofill Fix for Dark Mode */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #1f2937 inset !important;
+  -webkit-text-fill-color: white !important;
+  transition: background-color 5000s ease-in-out 0s;
+  /* Hack to keep background color */
+}
+
+/* Specific overrides for Kid mode if needed, but white text ok on dark, wait. 
+   Kid mode inputs are white bg. Adult mode are dark.
+   This global fix forces dark bg.
+   We need to scope it or just handle standard dark mode inputs.
+   Actually, let's just target the dark inputs specifically via class if possible, or assume global dark for now since the complaint was about visibility.
+   Better: Let's use the background color of the input itself.
+*/
+.theme-adult input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #111827 inset !important;
+  -webkit-text-fill-color: white !important;
+}
+
+:root {
+  /* --- KID MODE (Default): Vibrant Space Adventure --- */
+  --font-main: 'Nunito', sans-serif;
+  --color-primary: #8b5cf6;
+  /* Violet 500 */
+  --color-primary-dark: #7c3aed;
+  /* Violet 600 */
+  --color-secondary: #06b6d4;
+  /* Cyan 500 */
+  --color-secondary-dark: #0891b2;
+  /* Cyan 600 */
+  --color-accent: #ec4899;
+  /* Pink 500 */
+  --color-bg: #0f172a;
+  /* Slate 900 */
+  --color-card: #1e293b;
+  /* Slate 800 */
+  --color-text: #f8fafc;
+  --color-success: #22c55e;
+  --radius-lg: 1.5rem;
+  /* Rounder for kids */
+  --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+  --gradient-bg: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+  --border-style: 2px solid;
+}
+
+/* --- MIDNIGHT PRO MODE: Ultra Dark / Elegant --- */
+.theme-midnight {
+  --font-main: 'Inter', sans-serif;
+  --color-primary: #8b5cf6;
+  /* Violet 500 */
+  --color-primary-dark: #6d28d9;
+  /* Violet 700 */
+  --color-secondary: #0ea5e9;
+  /* Sky 500 */
+  --color-secondary-dark: #0284c7;
+  /* Sky 600 */
+  --color-accent: #f43f5e;
+  /* Rose 500 */
+
+  --color-bg: #020617;
+  /* Slate 950 (darker) */
+  --color-card: #0f172a;
+  /* Slate 900 */
+
+  --color-text: #e2e8f0;
+  /* Slate 200 */
+  --color-success: #10B981;
+  --radius-lg: 1rem;
+  --shadow-card: 0 10px 40px -10px rgba(88, 28, 135, 0.5);
+  /* Violet glow */
+  --gradient-bg: radial-gradient(circle at top right, #1e1b4b, #020617);
+  --border-style: 1px solid #1e293b;
+}
+
+/* --- ADULT MODE: Deep Blue SaaS / Professional --- */
+.theme-adult {
+  --font-main: 'Inter', sans-serif;
+  --color-primary: #3EC6FF;
+  /* Neon Blue */
+  --color-primary-dark: #2563EB;
+  /* Darker Blue */
+  --color-secondary: #6AA9FF;
+  /* Soft Blue */
+  --color-secondary-dark: #4B5563;
+  /* Gray */
+  --color-accent: #F59E0B;
+  /* Amber 500 (Gold) */
+
+  /* STRICT HEX CODES FROM SPEC */
+  --color-bg: #0F131A;
+  --color-card: #151924;
+
+  --color-text: #F3F4F6;
+  /* Slate 100 */
+  --color-success: #10B981;
+  --radius-lg: 0.75rem;
+  /* Sharper for adults */
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --gradient-bg: none;
+  --border-style: 1px solid;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color 0.5s ease, color 0.5s ease;
+  position: relative;
+  min-height: 100vh;
+  font-family: var(--font-main);
+  overflow-x: hidden;
+  /* Ensure scrolling is smooth and background covers everything */
+}
+
+html,
+body {
+  height: 100%;
+}
+
+/* Galaxy Background Layer (Visible in Kids Mode mostly) */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=2048&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  /* Very subtle */
+}
+
+/* Theme Overlay */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: var(--color-bg);
+  opacity: 0.92;
+  /* High opacity for legibility */
+  transition: background-color 0.5s ease;
+}
+
+.theme-adult body::after {
+  opacity: 0.98;
+  /* Almost solid for adults */
+}
+
+.theme-midnight body::after {
+  opacity: 0.95;
+  /* Deep dark overlay */
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}

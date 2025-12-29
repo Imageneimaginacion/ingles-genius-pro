@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+sqlalchemy>=2.0.36
+pydantic
+passlib[bcrypt]
+python-multipart
+python-jose[cryptography]
+a2wsgi

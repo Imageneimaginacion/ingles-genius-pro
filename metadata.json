@@ -1,0 +1,7 @@
+{
+  "name": "Inglés Genius Pro",
+  "description": "Una plataforma educativa inteligente para aprender inglés desde español, adaptada para niños y adultos con lecciones generadas por IA.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
